@@ -9,16 +9,13 @@ class Person:
 
 
 def create_person_list(people: list) -> list:
-
     people_classes = []
     for person in people:
         person_to_add = Person(person["name"], person["age"])
-        if "wife" in person:
-            if person["wife"]:
-                person_to_add.wife = person["wife"]
-        elif "husband" in person:
-            if person["husband"]:
-                person_to_add.husband = person["husband"]
+        if person.get("wife"):
+            person_to_add.wife = person["wife"]
+        elif person.get("husband"):
+            person_to_add.husband = person["husband"]
         people_classes.append(person_to_add)
 
     for person in people_classes:
