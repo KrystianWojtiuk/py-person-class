@@ -9,19 +9,13 @@ class Person:
 
 
 def create_person_list(people: list) -> list:
-    people_classes = []
-    for person in people:
-        person_to_add = Person(person["name"], person["age"])
-        if person.get("wife"):
-            person_to_add.wife = person["wife"]
-        elif person.get("husband"):
-            person_to_add.husband = person["husband"]
-        people_classes.append(person_to_add)
 
-    for person in people_classes:
-        if hasattr(person, "wife"):
-            person.wife = Person.people[person.wife]
-        elif hasattr(person, "husband"):
-            person.husband = Person.people[person.husband]
+    people_classes = [Person(person["name"], person["age"]) for person in people]
+
+    for person in zip(people_classes, people):
+        if person[1].get("wife"):
+            person[0].wife = Person.people[person[1]["wife"]]
+        elif person[1].get("husband"):
+            person[0].husband = Person.people[person[1]["husband"]]
 
     return people_classes
